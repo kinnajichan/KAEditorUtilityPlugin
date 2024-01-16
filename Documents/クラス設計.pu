@@ -1,0 +1,100 @@
+@startuml
+
+note "次タスク: サブメニュー関係関数設計" as aaa
+
+Package EngineClass
+{
+    class UToolMenus
+}
+
+Package KA_CommonEditorUtilityPlugin {
+package C++{
+
+    class KA_UEditorMenuManagerSubsystem <<UEditorSubsystem>> {
+        + bool RegisterMenuAsset(UBlueprint* menuAsset)
+        + bool TryRemoveInvalidRegisteredMenus()
+        + void UpdateAllRegisteredMenus()
+        + bool RemoveRegisteredMenuByName(FName menuName) 
+        + void FindSubMenuNames(FName parentName, TArray<FName>& result)
+        + bool CreateSubMenu(FName menuName)
+        + void GetRootMenuDataList(TArray<KA_FUserSelectableMenuData>& result)
+---
+        - bool RegisterMenu( UToolMenuEntryScript* target)
+===
+        - TArray<FName> AutoCreatedSubMenuNames
+        - TMap<FName,TWeakPtr<UToolMenuEntryScript>> RegisterdMenuInstances
+    }
+
+    class KA_FUserSelectableMenuData {
+        + FString MenuName
+        + FString DisplayName
+    }
+
+    class KA_UEditorMenuData <<UPrimaryDataAsset>> {
+        + TMap<FName,TWeakPtr<UBlueprint>> UserCreatedMenus
+        + TArray<KA_FUserSelectableMenuData> UserSelectableMenuCategories // 登録元メニュー情報
+    }
+    
+    class KA_UEditorMenuFunctionLibrary <<UFunctionLibrary>>
+    {
+        + UBlueprint* KA_CreateEUBAsset(FString assetPath, UClass* targetClass)
+        + bool KA_TrySetMenuEntryData(UBlueprint* menuAsset, FToolMenuEntryScriptData entryData )
+        ---
+        + UBlueprint* KA_CreateBlueprintAsset(FString assetPath,
+        UClass* targetClass,
+        EBlueprintType BlueprintType,
+        TSubclassOf< UBlueprint > BlueprintClassType,
+        TSubclassOf< UBlueprintGeneratedClass > BlueprintGeneratedClassType)
+    }
+
+    UToolMenus <-- KA_UEditorMenuManagerSubsystem : Menu登録
+
+    KA_UEditorMenuData <-right- KA_UEditorMenuManagerSubsystem
+    KA_UEditorMenuManagerSubsystem <-[hidden]down- KA_UEditorMenuFunctionLibrary
+    KA_FUserSelectableMenuData -up-o KA_UEditorMenuData
+
+}
+
+package BP {
+    class EUB_RefleshAllToolMenuMenu <<UEditorUtilityToolMenuEntry>>
+    {
+        メインフレームのメインメニューに、
+        このプラグインで管理しているメニューを
+        更新するボタンを追加するメニュー
+    } 
+    
+    class EUW_ToolMenuGenerator <<UEditorUtilityWidget>>
+    {
+        メニュー名等を入力してメニューを作成するEUW
+        入力可能項目は現状下記を想定している
+        + FName メニュー名 : 必須
+        + Dropdown ルートのEngineメニュー : 必須
+        + FName サブメニュー : 任意（ドロップダウンか手動入力を選べるように）
+        + FString アセットパス : 必須（基本自動入力だが編集可能）
+
+===
+    追加するか迷っている項目
+        + EMultiBlockType EntryType : 必須（デフォルトでルートにあった形式が設定される）
+        + TSubclassOf<UEditorUtilityToolMenuEntry> TargetClass : 自作クラスも設定できるようにする場合
+    }
+    
+    class EUB_CreateToolMenuMenu <<UEditorUtilityToolMenuEntry>>
+    {
+        右クリックメニューにToolMenu作成ボタンを追加するメニュー
+    }
+
+    note "このメニュー自体もKA_CommonEditorUtilityPluginの管理アセットにして、\nサンプルとしても扱えるようにしたい" as Note1
+
+    EUB_RefleshAllToolMenuMenu .down. Note1
+    Note1 .. EUB_CreateToolMenuMenu
+
+
+    EUW_ToolMenuGenerator <-- EUB_CreateToolMenuMenu
+}
+    
+    KA_UEditorMenuManagerSubsystem <-right- EUW_ToolMenuGenerator
+    KA_UEditorMenuFunctionLibrary<-right- EUW_ToolMenuGenerator
+    KA_UEditorMenuManagerSubsystem <-right- EUB_RefleshAllToolMenuMenu
+}
+
+@enduml
