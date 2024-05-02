@@ -1,4 +1,6 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+﻿/***************************************************
+* Copyright 2018 - 2024 Kinnaji.All right reserved.
+****************************************************/
 
 #pragma once
 
@@ -19,5 +21,6 @@ public:
 	virtual void RegisterCommands() override;
 
 public:
-	TSharedPtr< FUICommandInfo > PluginAction;
+	TSharedPtr< FUICommandInfo > OpenToolMenuGenerator;
+	TSharedPtr< FUICommandInfo > OpenEditorIconList;
 };

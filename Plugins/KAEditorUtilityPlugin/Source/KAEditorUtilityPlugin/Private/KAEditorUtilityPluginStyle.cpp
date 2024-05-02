@@ -1,4 +1,6 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+﻿/***************************************************
+* Copyright 2018 - 2024 Kinnaji.All right reserved.
+****************************************************/
 
 #include "KAEditorUtilityPluginStyle.h"
 #include "KAEditorUtilityPlugin.h"
@@ -43,7 +45,8 @@ TSharedRef< FSlateStyleSet > FKAEditorUtilityPluginStyle::Create()
 	TSharedRef< FSlateStyleSet > Style = MakeShareable(new FSlateStyleSet("KAEditorUtilityPluginStyle"));
 	Style->SetContentRoot(IPluginManager::Get().FindPlugin("KAEditorUtilityPlugin")->GetBaseDir() / TEXT("Resources"));
 
-	Style->Set("KAEditorUtilityPlugin.PluginAction", new IMAGE_BRUSH_SVG(TEXT("PlaceholderButtonIcon"), Icon20x20));
+	Style->Set("KAEditorUtilityPlugin.OpenToolMenuGenerator", new IMAGE_BRUSH_SVG(TEXT("plugin_button_icon"), Icon20x20));
+	Style->Set("KAEditorUtilityPlugin.OpenEditorIconList", new IMAGE_BRUSH_SVG(TEXT("plugin_button_icon"), Icon20x20));
 	return Style;
 }
 

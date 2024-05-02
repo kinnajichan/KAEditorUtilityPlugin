@@ -1,10 +1,14 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+﻿/***************************************************
+* Copyright 2018 - 2024 Kinnaji.All right reserved.
+****************************************************/
 
 #include "KAEditorUtilityPlugin.h"
 #include "KAEditorUtilityPluginStyle.h"
 #include "KAEditorUtilityPluginCommands.h"
 #include "Misc/MessageDialog.h"
 #include "ToolMenus.h"
+#include "EditorUtilitySubsystem.h"
+#include "EditorUtilityWidgetBlueprint.h"
 
 static const FName KAEditorUtilityPluginTabName("KAEditorUtilityPlugin");
 
@@ -19,11 +23,15 @@ void FKAEditorUtilityPluginModule::StartupModule()
 
 	FKAEditorUtilityPluginCommands::Register();
 	
-	PluginCommands = MakeShareable(new FUICommandList);
+	KAEditorUtilityCommands = MakeShareable(new FUICommandList);
 
-	PluginCommands->MapAction(
-		FKAEditorUtilityPluginCommands::Get().PluginAction,
-		FExecuteAction::CreateRaw(this, &FKAEditorUtilityPluginModule::PluginButtonClicked),
+	KAEditorUtilityCommands->MapAction(
+		FKAEditorUtilityPluginCommands::Get().OpenToolMenuGenerator,
+		FExecuteAction::CreateRaw(this, &FKAEditorUtilityPluginModule::OpenToolMenuGeneratorButtonClicked),
+		FCanExecuteAction());
+	KAEditorUtilityCommands->MapAction(
+		FKAEditorUtilityPluginCommands::Get().OpenEditorIconList,
+		FExecuteAction::CreateRaw(this, &FKAEditorUtilityPluginModule::OpenEditorIconListButtonClicked),
 		FCanExecuteAction());
 
 	UToolMenus::RegisterStartupCallback(FSimpleMulticastDelegate::FDelegate::CreateRaw(this, &FKAEditorUtilityPluginModule::RegisterMenus));
@@ -43,38 +51,40 @@ void FKAEditorUtilityPluginModule::ShutdownModule()
 	FKAEditorUtilityPluginCommands::Unregister();
 }
 
-void FKAEditorUtilityPluginModule::PluginButtonClicked()
+void FKAEditorUtilityPluginModule::OpenToolMenuGeneratorButtonClicked()
 {
-	// Put your "OnButtonClicked" stuff here
-	FText DialogText = FText::Format(
-							LOCTEXT("PluginButtonDialogText", "Add code to {0} in {1} to override this button's actions"),
-							FText::FromString(TEXT("FKAEditorUtilityPluginModule::PluginButtonClicked()")),
-							FText::FromString(TEXT("KAEditorUtilityPlugin.cpp"))
-					   );
-	FMessageDialog::Open(EAppMsgType::Ok, DialogText);
+	if (auto* EUS = GEditor->GetEditorSubsystem<UEditorUtilitySubsystem>())
+	{
+		if (auto* EUW = (UEditorUtilityWidgetBlueprint*)StaticLoadObject(UEditorUtilityWidgetBlueprint::StaticClass(), EUS, *FString("/KAEditorUtilityPlugin/EUW_ToolMenuGenerator"), nullptr, LOAD_None, nullptr))
+		{
+			EUS->SpawnAndRegisterTab(EUW);
+		}
+	}
+}
+
+void FKAEditorUtilityPluginModule::OpenEditorIconListButtonClicked()
+{
+	if (auto* EUS = GEditor->GetEditorSubsystem<UEditorUtilitySubsystem>())
+	{
+		if (auto* EUW = (UEditorUtilityWidgetBlueprint*)StaticLoadObject(UEditorUtilityWidgetBlueprint::StaticClass(), EUS, *FString("/KAEditorUtilityPlugin/IconList/EUW_EditorIconList"), nullptr, LOAD_None, nullptr))
+		{
+			EUS->SpawnAndRegisterTab(EUW);
+		}
+	}
 }
 
 void FKAEditorUtilityPluginModule::RegisterMenus()
 {
-	// Owner will be used for cleanup in call to UToolMenus::UnregisterOwner
 	FToolMenuOwnerScoped OwnerScoped(this);
 
 	{
 		UToolMenu* Menu = UToolMenus::Get()->ExtendMenu("LevelEditor.MainMenu.Window");
 		{
-			FToolMenuSection& Section = Menu->FindOrAddSection("WindowLayout");
-			Section.AddMenuEntryWithCommandList(FKAEditorUtilityPluginCommands::Get().PluginAction, PluginCommands);
-		}
-	}
-
-	{
-		UToolMenu* ToolbarMenu = UToolMenus::Get()->ExtendMenu("LevelEditor.LevelEditorToolBar.PlayToolBar");
-		{
-			FToolMenuSection& Section = ToolbarMenu->FindOrAddSection("PluginTools");
-			{
-				FToolMenuEntry& Entry = Section.AddEntry(FToolMenuEntry::InitToolBarButton(FKAEditorUtilityPluginCommands::Get().PluginAction));
-				Entry.SetCommandList(PluginCommands);
-			}
+			FToolMenuSection& Section = Menu->FindOrAddSection("KAEditorUtility");
+			Section.Label = LOCTEXT("KAEditorUtilitySection", "KAEditorUtility");
+			Section.AddMenuEntryWithCommandList(FKAEditorUtilityPluginCommands::Get().OpenToolMenuGenerator, KAEditorUtilityCommands);
+			Section.AddMenuEntryWithCommandList(FKAEditorUtilityPluginCommands::Get().OpenEditorIconList, KAEditorUtilityCommands);
+			UToolMenus::Get()->RefreshAllWidgets();
 		}
 	}
 }

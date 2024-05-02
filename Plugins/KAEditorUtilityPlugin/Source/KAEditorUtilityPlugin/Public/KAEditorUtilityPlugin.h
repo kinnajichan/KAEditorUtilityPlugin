@@ -1,4 +1,6 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+﻿/***************************************************
+* Copyright 2018 - 2024 Kinnaji.All right reserved.
+****************************************************/
 
 #pragma once
 
@@ -12,18 +14,16 @@ class FKAEditorUtilityPluginModule : public IModuleInterface
 {
 public:
 
-	/** IModuleInterface implementation */
 	virtual void StartupModule() override;
 	virtual void ShutdownModule() override;
 	
-	/** This function will be bound to Command. */
-	void PluginButtonClicked();
+	void OpenToolMenuGeneratorButtonClicked();
+	void OpenEditorIconListButtonClicked();
 	
 private:
 
 	void RegisterMenus();
 
-
 private:
-	TSharedPtr<class FUICommandList> PluginCommands;
+	TSharedPtr<class FUICommandList> KAEditorUtilityCommands;
 };

@@ -1,4 +1,6 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+﻿/***************************************************
+* Copyright 2018 - 2024 Kinnaji.All right reserved.
+****************************************************/
 
 using UnrealBuildTool;
 
@@ -25,7 +27,14 @@ public class KAEditorUtilityPlugin : ModuleRules
 		PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"Core","EditorSubsystem", "AssetTools", "KismetCompiler", "UnrealEd", "AssetRegistry", "Blutility", "EditorScriptingUtilities",
+				"Core",
+				"EditorSubsystem", 
+				"AssetTools", 
+				"KismetCompiler", 
+				"UnrealEd", 
+				"AssetRegistry", 
+				"Blutility", 
+				"EditorScriptingUtilities",
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);

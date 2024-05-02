@@ -1,4 +1,6 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+﻿/***************************************************
+* Copyright 2018 - 2024 Kinnaji.All right reserved.
+****************************************************/
 
 #pragma once
 
@@ -10,15 +12,11 @@ class FKAEditorUtilityPluginStyle
 public:
 
 	static void Initialize();
-
 	static void Shutdown();
 
-	/** reloads textures used by slate renderer */
 	static void ReloadTextures();
 
-	/** @return The Slate style set for the Shooter game */
 	static const ISlateStyle& Get();
-
 	static FName GetStyleSetName();
 
 private:
