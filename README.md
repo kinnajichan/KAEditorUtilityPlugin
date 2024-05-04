@@ -9,4 +9,4 @@ UnrealEngineのEditor拡張プラグイン
 * [EditorUtilityWidgetを閉じる際の確認処理追加の方法](./EditorUtilityWidget_CanCloseTab.md)
 
 ## ダウンロード
-[ダウンロード](https://github.com/kinnajichan/KAEditorUtilityPlugin/releases/0.1)
+[ダウンロード](https://github.com/kinnajichan/KAEditorUtilityPlugin/releases/1.0)
