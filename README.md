@@ -6,3 +6,6 @@ UnrealEngineのEditor拡張プラグイン
 * [アセットを開いた際のイベント登録方法](./Documents/AssetDelegate.md)
 * [画像を使用したSlateStyle一覧確認機能使用方法](./Documents/StyleList.md)
 * [EditorUtilityWidgetを閉じる際の確認処理追加の方法](./EditorUtilityWidget_CanCloseTab.md)
+
+## ダウンロード
+[ダウンロード UE5.1Ver Preview 0.1](./Releases/tag/0.1)
