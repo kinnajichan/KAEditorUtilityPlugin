@@ -19,10 +19,10 @@ struct FKA_UserSelectableMenuData
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "KA_EditorUtility")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "KAEditorUtility")
 	FName MenuName; // メニュー名
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "KA_EditorUtility")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "KAEditorUtility")
 	FText DisplayName; // 表示名
 
 	FKA_UserSelectableMenuData() 
@@ -45,19 +45,19 @@ struct FKA_WidgetMenuEntryData
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="KA_EditorUtiltiy")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="KAEditorUtility")
 	FName MenuName;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="KA_EditorUtiltiy")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="KAEditorUtility")
 	FName MenuSection;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="KA_EditorUtiltiy")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="KAEditorUtility")
 	FText MenuLabel;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="KA_EditorUtiltiy")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="KAEditorUtility")
 	bool IsDisplayMenuLabel;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="KA_EditorUtiltiy")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="KAEditorUtility")
 	TSubclassOf<UUserWidget> MenuWidgetType;
 };
 
@@ -71,16 +71,16 @@ public:
 
 	GENERATED_BODY()
 	
-	UPROPERTY(EditAnywhere, Category = "KA_EditorUtility")
+	UPROPERTY(EditAnywhere, Category = "KAEditorUtility")
 	TMap<FName, TSoftObjectPtr<UBlueprint>> UserCreatedMenus;
 
-	UPROPERTY(EditAnywhere, Category = "KA_EditorUtility")
+	UPROPERTY(EditAnywhere, Category = "KAEditorUtility")
 	TMap<FName, FKA_WidgetMenuEntryData> CreatedWidgetMenus;
 
-	UPROPERTY(EditAnywhere, Category="KA_EditorUtility")
+	UPROPERTY(EditAnywhere, Category="KAEditorUtility")
 	TArray<FKA_UserSelectableMenuData> UserSelectableMenuCategories;
 
-	UPROPERTY(EditAnywhere, Category = "KA_EditorUtility")
+	UPROPERTY(EditAnywhere, Category = "KAEditorUtility")
 	TSet<FName> VerifiedRootMenuNameSet;
 };
 

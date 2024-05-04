@@ -6,7 +6,7 @@
 
 #include "CoreMinimal.h"
 #include "EditorSubsystem.h"
-#include "KA_EditorMenuData.h"
+#include "EditorMenu/KA_EditorMenuData.h"
 #include "KA_EditorMenuManagerSubsystem.generated.h"
 
 /**

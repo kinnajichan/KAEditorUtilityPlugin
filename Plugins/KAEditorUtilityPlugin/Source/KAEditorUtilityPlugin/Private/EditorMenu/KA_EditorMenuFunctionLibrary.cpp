@@ -3,7 +3,7 @@
 ****************************************************/
 
 
-#include "KA_EditorMenuFunctionLibrary.h"
+#include "EditorMenu/KA_EditorMenuFunctionLibrary.h"
 #include "DesktopPlatformModule.h"
 #include "KismetCompilerModule.h"
 #include "Kismet2/KismetEditorUtilities.h"
