@@ -9,12 +9,21 @@
 #include "Components/Widget.h"
 #include "Subsystems/UnrealEditorSubsystem.h"
 #include "Blueprint/UserWidget.h"
+#include "EditorMenu/KA_EditorMenuSettings.h"
 
 void UKA_EditorMenuManagerSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
 	Super::Initialize(Collection);
-	
-	EditorMenuData = LoadObject<UKA_EditorMenuData>(this, *FString("/KAEditorUtilityPlugin/KA_EditorMenuData.KA_EditorMenuData"), nullptr, LOAD_None, nullptr);
+	UKA_EditorMenuSettings* menuSettings = GetMutableDefault<UKA_EditorMenuSettings>();
+	if (UKA_EditorMenuData* menuData = Cast<UKA_EditorMenuData>(menuSettings->MenuData.TryLoad()))
+	{
+		EditorMenuData = menuData;
+	}
+	else
+	{
+		EditorMenuData = LoadObject<UKA_EditorMenuData>(this, *FString("/KAEditorUtilityPlugin/KA_EditorMenuData.KA_EditorMenuData"), nullptr, LOAD_None, nullptr);
+		menuSettings->MenuData = EditorMenuData;
+	}
 	UpdateAllRegisteredMenus();
 }
 

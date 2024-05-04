@@ -26,7 +26,7 @@ public:
 	 * @param menuAsset 追加するメニューのBPAsset
 	 * @return 追加に成功したか
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "KAEditorUtility|Menu")
 	bool AddGeneratedMenu(UBlueprint* menuAsset);
 
 	
@@ -35,7 +35,7 @@ public:
 	 * @param widgetEntryData Widgetメニュー登録情報
 	 * @return 追加に成功したか
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "KAEditorUtility|Menu")
 	bool AddWidgetMenu(const FKA_WidgetMenuEntryData& widgetEntryData);
 
 	
@@ -43,14 +43,14 @@ public:
 	 * 無効な管理対象のメニューを管理対象から削除する
 	 * @return 削除したメニューが存在したか
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "KAEditorUtility|Menu")
 	bool RemoveInvalidRegisteredMenus();
 
 	
 	/**
 	 * 登録済み全メニュー更新
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "KAEditorUtility|Menu")
 	void UpdateAllRegisteredMenus();
 
 	
@@ -58,7 +58,7 @@ public:
 	 * 登録済みメニューを管理対象から除外する
 	 * @param menuName メニュー名
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "KAEditorUtility|Menu")
 	void RemoveRegisteredMenuByName(FName menuName);
 
 	
@@ -67,7 +67,7 @@ public:
 	 * @param parentName 親メニュー名
 	 * @param result SubMenu情報配列
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "KAEditorUtility|Menu")
 	void FindSubMenuNames(FName parentName, TArray<FKA_UserSelectableMenuData>& result);
 
 	/**
@@ -75,7 +75,7 @@ public:
 	 * @param menuName メニュー名
 	 * @return 追加に成功したか
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "KAEditorUtility|Menu")
 	bool AddSubMenu(FName menuName);
 
 	/**
@@ -83,7 +83,7 @@ public:
 	 * @param menuName メニュー名
 	 * @return 削除に成功したか
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "KAEditorUtility|Menu")
 	bool RemoveSubMenu(FName menuName);
 
 	
@@ -91,7 +91,7 @@ public:
 	 * ユーザーが追加可能な親メニュー情報一覧取得
 	 * @param result 親メニュー情報一覧
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "KAEditorUtility|Menu")
 	void GetRootMenuDataList(TArray<FKA_UserSelectableMenuData>& result);
 
 	/**
@@ -100,14 +100,14 @@ public:
 	 * @param Child 子メニュー名
 	 * @return 結合結果メニュー名
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "KAEditorUtility|Menu")
 	FName JoinPath(const FName Base, const FName Child);
 
 	/**
 	 * 指定のメニューから親をたどり、空のサブメニューを全て削除する
 	 * @param menuName 削除し始めるメニュー名
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "KAEditorUtility|Menu")
 	void RemoveEmptySubMenuTree(FName menuName);
 
 	/**
@@ -115,7 +115,7 @@ public:
 	 * @param targetAssetData 対象のAssetData
 	 * @return 管理対象に存在するか
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "KAEditorUtility|Menu")
 	bool IsMenuAssetRegistered(const FAssetData& targetAssetData);
 	
 private:
@@ -135,7 +135,7 @@ private:
 	TArray<FName> AutoCreatedSubMenuNames;
 	TMap<FName, FKA_WidgetMenuEntryData> RegisteredWidgetMenuMap;
 	TMap<FName, FToolMenuEntryScriptData> RegisteredMenuDataMap;
-
+public:
 	UPROPERTY()
 	TObjectPtr<UKA_EditorMenuData> EditorMenuData;
 };

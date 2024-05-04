@@ -63,7 +63,7 @@ EditorUtilityToolMenuEntryを作成し、各種基本設定を行う
 * サブメニュー階層のドロップダウンで新規作成以外を指定している場合はサブメニュー名を入力できない
 
 ### メニュー追加対象メニュー階層の追加方法
-1. AEditorUtilityPlugin\Content\KA_EditorMenuDataを開く
+1. ProjectSettings->KAEditorMenu->MenuDataに設定されているDataAssetを開く
 1. Verified Menu Name Setへ新たに登録可能にしたいメニューの親メニュー名を追加
 1. メニュー作成Widgetでも選択可能にする場合はUser Selectable Menu Categoriesにも追加
 
@@ -124,8 +124,18 @@ FKA_WidgetMenuEntryDataの各項目が設定できるようになっておりま
     ``` c++
     void UKA_EditorMenuManagerSubsystem::RemoveRegisteredMenuByName(FName menuName);
     ```
-* KAEditorUtilityPlugin\Content\KA_EditorMenuDataを開き各変数を編集する
+    ![alt text](./Images/RegisterMenu4.png)
+* ProjectSettings->KAEditorMenu->MenuDataに設定されているDataAssetを開き各変数を編集する
     * User Created MenusのValueを空にする
     * Created Widget MenusのMenu Widget TypeにNoneを設定する
     * 行を削除した場合はEditor再起動時に反映されます
 
+## 登録するメニューリストを切り替える
+
+ProjectSettings->KAEditorMenu->MenuDataに設定されているDataAssetを作成したDataAssetに切り替えることがで登録するメニューを変更することができます。※変更したらプロジェクトを再起動する必要があります。
+
+![alt text](./Images/RegisterMenu5.png)
+
+なお、DataAssetはKAEditorUtilityPlugin\KA_EditorMenuDataをコピーするか、アセットの新規作成からMiscellaneous->DataAssetを選択し、クラス選択画面でKA_EditorMenuDataを選択することで作成可能です。
+
+![alt text](./Images/RegisterMenu6.png)
