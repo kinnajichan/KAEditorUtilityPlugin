@@ -18,16 +18,16 @@
 `GetCanCloseEUWTab`関数をオーバーライドし、条件を記載します。
 ※`ShowMessageDialog`等と組み合わせることで、閉じる際にメッセージウィンドウを表示させることができます。
 
-![alt text](image-3.png)
+![alt text](images/CanCloseEUW_GetCanCloseEUWTab.png)
 
 `EventConstruct`ノードから`AsyncBindCanCloseEUWTab`を接続させます。
 そして、`CanCloseTabDelegate`に`CreateEvent`ノードを接続し、プルダウンから`GetCanCloseEUWTab`を選択します。
 ※引数のEUWBPを自動的に使用しているEditorUtilityWidgetにするには、`KA_GetEUWBPFromEUW`ノードを使用してみてください。
 
-![alt text](image-4.png)
+![alt text](images/CanCloseEUW_GetCanCloseEUWTab.png)
 
 これでEditorUtilityWidgetを起動すると、EditorUtilityWidgetのタブを閉じる際に`GetCanCloseEUWTab`の処理が走ります。
 
-![alt text](image-5.png)
+![alt text](images/CanCloseEUW_Result.png)
 
 以上
