@@ -24,7 +24,7 @@
 そして、`CanCloseTabDelegate`に`CreateEvent`ノードを接続し、プルダウンから`GetCanCloseEUWTab`を選択します。
 ※引数のEUWBPを自動的に使用しているEditorUtilityWidgetにするには、`KA_GetEUWBPFromEUW`ノードを使用してみてください。
 
-![alt text](images/CanCloseEUW_GetCanCloseEUWTab.png)
+![alt text](images/CanCloseEUW_BindCanCloseTab.png)
 
 これでEditorUtilityWidgetを起動すると、EditorUtilityWidgetのタブを閉じる際に`GetCanCloseEUWTab`の処理が走ります。
 
